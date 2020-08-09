@@ -77,19 +77,7 @@ class ServerConfig {
   }
 
   registerApolloServer() {
-    /* init Apollo with schema */
-    //const server = new ApolloServer({ schema });
-    /* init Apollo with SDL */
-    // const server = new ApolloServer({ 
-    //   typeDefs: GraphQL.typeDefs,l
-    //   resolvers: GraphQL.resolvers,
-    //   schemaDirectives: GraphQL.schemaDirectives,
-    //   formatError: ErrorHandler.formatGQLError,
-    //   introspection: true,
-    //   playground: true,
-    //   tracing: true,
-    //   batching: true,
-    //  });
+    const server = new ApolloServer({ schema });
     server.applyMiddleware({ app: this.app });
     return this;
   }

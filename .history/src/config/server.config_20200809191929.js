@@ -81,7 +81,7 @@ class ServerConfig {
     //const server = new ApolloServer({ schema });
     /* init Apollo with SDL */
     // const server = new ApolloServer({ 
-    //   typeDefs: GraphQL.typeDefs,l
+    //   typeDefs: GraphQL.typeDefs,
     //   resolvers: GraphQL.resolvers,
     //   schemaDirectives: GraphQL.schemaDirectives,
     //   formatError: ErrorHandler.formatGQLError,
