@@ -22,6 +22,8 @@ const UserSchema = new Schema(
       unique: true,
     },
     password: { type: String, required: true },
+    active: { type: String, default: 'active' },
+    totalPosts: { type: Number },
     links: [],
   },
   {

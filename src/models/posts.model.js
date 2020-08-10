@@ -8,20 +8,14 @@ const Status = Object.freeze({
   deleted: 'deleted',
 });
 
-const UserSchema = new Schema(
+const PostSchema = new Schema(
   {
-    name: {
-      type: String,
-      maxLength: 50,
-      minLength: 1,
+    userId: {
+      type: { type: Schema.Types.ObjectId, ref: 'User' },
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: { type: String, required: true },
-    links: [],
+    content: {
+      type: String
+    }
   },
   {
     versionKey: false,
@@ -32,10 +26,10 @@ const UserSchema = new Schema(
   },
 );
 
-Object.assign(UserSchema.statics, { Status });
+Object.assign(PostSchema.statics, { Status });
 
 module.exports = mongoose.model(
-  'User',
-  UserSchema,
-  'users',
+  'Post',
+  PostSchema,
+  'posts',
 );
