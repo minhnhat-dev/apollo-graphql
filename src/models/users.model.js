@@ -4,8 +4,8 @@ const { BcryptUtils } = require('../utils');
 const { Schema } = mongoose;
 
 const Status = Object.freeze({
-  active: 'active',
   inactive: 'inactive',
+  active: 'active',
   deleted: 'deleted',
 });
 
@@ -24,7 +24,6 @@ const UserSchema = new Schema(
     password: { type: String, required: true },
     active: { type: String, default: 'active' },
     totalPosts: { type: Number },
-    links: [],
   },
   {
     versionKey: false,

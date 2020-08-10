@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 const Status = Object.freeze({
   active: 'active',
@@ -11,11 +12,11 @@ const Status = Object.freeze({
 const PostSchema = new Schema(
   {
     userId: {
-      type: { type: Schema.Types.ObjectId, ref: 'User' },
+      type: ObjectId, ref: 'User',
     },
     content: {
-      type: String
-    }
+      type: String,
+    },
   },
   {
     versionKey: false,

@@ -1,0 +1,61 @@
+directive @cacheControl(
+  maxAge: Int
+  scope: CacheControlScope
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+# Exposes a URL that specifies the behaviour of this scalar.
+directive @specifiedBy(
+  # The URL that specifies the behaviour of this scalar.
+  url: String!
+) on SCALAR
+type Author {
+  email: String
+  name: String
+
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+type Mutation {
+  register(name: String!, email: String!, password: String!): UserAuth
+  login(email: String!, password: String!): UserAuth
+  deleteUser(id: ID!): Boolean
+  updateUser(id: ID!, name: String!): User
+  createPost(content: String, userId: ID!): Post
+  deletePost(id: ID!): Boolean
+}
+
+type Post {
+  id: ID
+  content: String
+  userId: ID
+  author: Author
+  createdAt: String
+}
+
+type Query {
+  user(id: ID!): User
+  users: [User!]
+  post(id: ID!): Post
+  posts(content: String): [Post]
+}
+
+# The `Upload` scalar type
+ represents a file upload.
+scalar Upload
+
+type User {
+  id: String
+  name: String
+  email: String
+  totalPosts: String
+  active: Boolean
+  posts: [Post]
+}
+
+type UserAuth {
+  token: String
+  user: User
+}
+

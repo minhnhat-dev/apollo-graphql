@@ -3,8 +3,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const { ApolloServer } = require('apollo-server-express');
-const schema = require('../schema');
+const schema = require('../graphql/schema');
+const models = require('../models');
 const dbConf = require('../db');
+const DirectiveImplement = require('../graphql/schema/directives')
 require('dotenv').config();
 
 class ServerConfig {
@@ -78,18 +80,22 @@ class ServerConfig {
 
   registerApolloServer() {
     /* init Apollo with schema */
-    //const server = new ApolloServer({ schema });
+    // const server = new ApolloServer({ schema });
     /* init Apollo with SDL */
-    // const server = new ApolloServer({ 
-    //   typeDefs: GraphQL.typeDefs,l
-    //   resolvers: GraphQL.resolvers,
-    //   schemaDirectives: GraphQL.schemaDirectives,
-    //   formatError: ErrorHandler.formatGQLError,
-    //   introspection: true,
-    //   playground: true,
-    //   tracing: true,
-    //   batching: true,
-    //  });
+    const server = new ApolloServer({
+      typeDefs: schema.typeDefs,
+      resolvers: schema.resolvers,
+      schemaDirectives: {
+        uppercase: DirectiveImplement.UpperCaseDirective,
+      },
+      introspection: true,
+      playground: true,
+      tracing: true,
+      batching: true,
+      context: ({ req }) => ({
+        models,
+      }),
+    });
     server.applyMiddleware({ app: this.app });
     return this;
   }
