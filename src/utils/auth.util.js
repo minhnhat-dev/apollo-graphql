@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const createError = require('http-errors');
-
+const { AuthenticationError } = require('apollo-server-express');
+const {UserService} = require('../services');
 const secret = 'secret';
 
 const sign = (payload) => jwt.sign(payload, secret, { expiresIn: 10800 });
@@ -25,8 +26,27 @@ const authenticate = (req, res, next) => {
     }
   });
 };
+
+const getUser = async (token, models) => {
+  if (!token) {
+    return {
+      user: null,
+    };
+  }
+  try {
+    const decodedToken = jwt.verify(token, secret);
+    const { id } = decodedToken;
+    const user = await models.UsersModel.findOne({ _id: id });
+    return { user };
+  } catch (e) {
+    console.log(e);
+    throw new AuthenticationError('Unauthorized');
+  }
+};
+
 module.exports = {
   sign,
   verify,
   authenticate,
+  getUser,
 };

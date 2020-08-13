@@ -29,11 +29,14 @@ const UserResolvers = {
     },
   },
   User: {
-    posts: async ({ _id }) => PostService.find({ userId: _id }),
+    id: (user) => user._id,
+    posts: async ({ id }) => PostService.find({ userId: id }),
   },
   Query: {
     users: async (root, args) => UserService.find(),
-    user: async (root, { id }) => UserService.findOne({ _id: id }),
+    user: async (root, { id }) => {
+      UserService.findOne({ _id: id });
+    },
     search: (root, args) => {
       const search = [
         { post: 1, message: 'Post', content: 'Post content' },
@@ -78,7 +81,7 @@ const UserResolvers = {
         throw new createError.BadRequest('Invalid email or password');
       }
       return {
-        token: AuthUtils.sign({ id: user.id }),
+        token: AuthUtils.sign({ id: user._id }),
         user,
       };
     },

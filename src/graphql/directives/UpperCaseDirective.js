@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const { SchemaDirectiveVisitor } = require('apollo-server-express');
 const { defaultFieldResolver } = require('graphql');
 
@@ -11,7 +12,7 @@ class UpperCaseDirective extends SchemaDirectiveVisitor {
       }
       return result;
     };
-  };
+  }
 }
 
-module.exports = UpperCaseDirective
+module.exports = UpperCaseDirective;

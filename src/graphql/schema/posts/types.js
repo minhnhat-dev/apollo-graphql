@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 const PostTypes = gql`
     type Post {
         _id: ID
-        content: String
+        content: String @uppercase
         userId: ID
         author: Author
         createdAt: String
@@ -17,6 +17,7 @@ const PostTypes = gql`
     extend type Query {
         post(id: ID!): Post
         posts(content: String): [Post]
+        fetchPosts: [Post]
     }
 
     extend type Mutation {

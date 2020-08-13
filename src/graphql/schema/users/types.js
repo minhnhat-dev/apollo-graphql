@@ -21,7 +21,7 @@ const UserType = gql`
   }
 
   type User {
-    _id: String
+    id: String
     name: String
     email: String
     totalPosts: String
